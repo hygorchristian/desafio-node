@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Websocket</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  </head>
+
+  <body>
+    <div id="content">
+      <header>
+        <div id="status"></div> Status: <span id="status-pedido">Criado</span>
+      </header>
+      <section id="chat-section">
+        <ul id="chat-list">
+        </ul>
+      </section>
+      <footer>
+        <textarea id="chat-box" placeholder="Digite o seu texto aqui"></textarea>
+      </footer>
+    </div>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+  <script src="https://unpkg.com/@adonisjs/websocket-client@1.0.9/dist/Ws.browser.js"></script>
+
+  <script>
+    let ws = adonis.Ws('ws://localhost:3333').connect()
+
+    const status = document.querySelector('div#status')
+
+    ws.on('open', () => {
+      status.classList.add('online')
+      console.log("Conexão aberta")
+    })
+
+    ws.on('error', () => {
+      status.classList.remove('online')
+    })
+
+    ws.on('close', () => {
+      status.classList.remove('online')
+      console.log('Conexão fechada')
+    })
+
+    const url = new URLSearchParams(window.location.search)
+    const nameURL = url.get('name')
+
+    const pedido = ws.subscribe('pedido:2')
+
+    const statusPedido = document.getElementById('status-pedido')
+
+    pedido.on('status', (pedido) => {
+      statusPedido.innerText = pedido
+    })
+
+  </script>
+</html>
