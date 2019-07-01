@@ -4,9 +4,6 @@
   "adonis-version": "4.1.0",
   "description": "Adonisjs boilerplate for API server with pre-configured JWT",
   "main": "index.js",
-  "engines": {
-    "node": "8.5.0"
-  },
   "scripts": {
     "start": "node server.js",
     "test": "node ace test"
@@ -28,7 +25,8 @@
     "@adonisjs/ignitor": "^2.0.8",
     "@adonisjs/lucid": "^6.1.3",
     "@adonisjs/websocket": "^1.0.11",
-    "sqlite3": "^4.0.9"
+    "sqlite3": "^4.0.9",
+    "url-parse": "^1.4.7"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
