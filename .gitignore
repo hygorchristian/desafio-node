@@ -11,3 +11,6 @@ tmp
 database/development.sqlite
 
 .idea
+
+package-lock.json
+yarn.lock
