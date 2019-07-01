@@ -18,9 +18,20 @@
 */
 
 const { Ignitor } = require('@adonisjs/ignitor')
+const path = require('path')
+const https = require('https')
+const fs = require('fs')
+
+// Certificate
+// const options = {
+//   key: null, // fs.readFileSync(path.join(__dirname, './server.key')),
+//   cert: null // fs.readFileSync(path.join(__dirname, './server.crt'))
+// }
 
 new Ignitor(require('@adonisjs/fold'))
   .appRoot(__dirname)
   .wsServer()
-  .fireHttpsServer()
+  .fireHttpServer((handler) => {
+    return https.createServer({}, handler)
+  })
   .catch(console.error)
